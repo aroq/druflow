@@ -31,6 +31,7 @@ dependencies {
 }
 
 tasks.getByName('test').inputs.files(sourceSets.jobs.groovy.srcDirs)
+tasks.getByName('test').systemProperties(System.getProperties())
 
 task rest(dependsOn: 'classes', type: JavaExec) {
     main = 'com.dslexample.rest.RestApiScriptRunner'
