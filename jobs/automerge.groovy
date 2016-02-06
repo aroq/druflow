@@ -14,7 +14,7 @@ if (config.environment == 'local') {
     config.repoPath = System.getProperty('repoPath')
 }
 else {
-    config.repoPath = WORKSPACE
+    config.repoPath = "${WORKSPACE}/${config}"
 }
 
 (new Component(componentName: 'automerge', scriptObject: this, config: config)).processComponent()
