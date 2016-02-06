@@ -19,9 +19,7 @@ class Component {
     }
 
     def getBranchListByPattern(pattern) {
-
         def gitlabBranches = new groovy.json.JsonSlurper().parseText(new URL("${config.gitlabAddress}/api/v3/projects/${config.projectID}/repository/branches?private_token=${config.privateToken}").text).name
-
         gitlabBranches.findAll { it.value =~ pattern }
     }
 
