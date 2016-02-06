@@ -19,14 +19,10 @@ class Component {
     }
 
     def getBranchListByPattern(pattern) {
-        def branches = []
-        def patternBranches = (new ShellCommand(cmd: "git branch -a --list \"${pattern}\"", dir: new File(config.repoPath))).perform()
-        if (patternBranches) {
-            patternBranches.eachLine {
-                branches << it.trim()
-            }
-        }
-        branches
+
+        def gitlabBranches = new groovy.json.JsonSlurper().parseText(new URL("${config.gitlabAddress}/api/v3/projects/${config.projectID}/repository/branches?private_token=${config.privateToken}").text).name
+
+        gitlabBranches.findAll { it.value =~ pattern }
     }
 
     def prepareBranch(name, branch, parent) {
@@ -64,7 +60,7 @@ class Component {
         processedBranches.each { name, branch ->
             if (branch.namePattern) {
                 def pattern = processNamePattern(branch.namePattern, parent)
-                getBranchListByPattern("${componentConfig.remoteName}/${pattern}").each{
+                getBranchListByPattern(pattern)?.each{
                     def mergeToBranch = it - "remotes/${componentConfig.remoteName}/"
                     branches += prepareBranch(mergeToBranch, branch, parent)
                 }
@@ -101,7 +97,6 @@ class Component {
         def slurper = new ConfigSlurper()
 
         componentConfig = slurper.parse(componentConfigFile)
-        (new ShellCommand(cmd: "git fetch -p", dir: new File(config.repoPath))).perform()
 
         scriptObject.folder("${componentConfig.projectFolder}/${componentName}")
 

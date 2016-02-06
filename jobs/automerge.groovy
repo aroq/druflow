@@ -11,10 +11,14 @@ try {
 }
 
 if (config.environment == 'local') {
-    config.repoPath = System.getProperty('repoPath')
+    config.gitlabAddress = System.getProperty('gitlabAddress')
+    config.projectID = System.getProperty('projectID')
+    config.privateToken = System.getProperty('privateToken')
 }
 else {
-    config.repoPath = "${WORKSPACE}/${config}"
+    config.gitlabAddress = gitlabAddress
+    config.projectID = projectID
+    config.privateToken = privateToken
 }
 
 (new Component(componentName: 'automerge', scriptObject: this, config: config)).processComponent()
