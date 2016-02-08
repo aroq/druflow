@@ -1,4 +1,3 @@
-
 apply plugin: 'groovy'
 
 repositories {
@@ -13,10 +12,9 @@ project.ext {
 project.with {
     group 'druflow'
     version '1.0-SNAPSHOT'
+    wrapper.gradleVersion = "$gradleVersion"
 
     defaultTasks 'app'
-
-    wrapper.gradleVersion = "$gradleVersion"                //<20>
 }
 
 dependencies {
@@ -24,6 +22,10 @@ dependencies {
 }
 
 task app (dependsOn: 'classes', type: JavaExec) {
+    assert status
+    println status
+    def test = System.properties
     main = 'app'
     classpath = sourceSets.main.runtimeClasspath
+    systemProperties System.getProperties()
 }

@@ -1,0 +1,39 @@
+// Configuration.
+defaultContextDirs = [
+        [contextName: 'core', dir: sitesDir() + '/all'],
+        [contextName: 'docroot', dir: sitesDir() + '/default'],
+]
+
+// "scripts" closure will be used in stages below.
+scripts = {
+    getContextScripts site: site, type: 'deploy', subdir: 'tools/deploy', defaultContextDirs: defaultContextDirs
+}
+
+log "Project name: ${projectName}"
+
+if (projectName in ['sites', 'common']) {
+    builders = []
+}
+else {
+    //builders = ['siteListByProject', 'siteListByGitChangedFiles']
+    builders = ['siteListByProject']
+}
+
+// Deploy flow.
+siteList(builders: builders).each { site ->
+    log "Executing deploy steps for: ${site}"
+
+    stage('before') {
+        executeSteps site: site, runs: ['all', env], stage: stage, contextScripts: scripts
+    }
+
+    stage('main') {
+        executeSteps site: site, runs: ['all', env], stage: stage, contextScripts: scripts
+    }
+
+    stage('after') {
+        executeSteps site: site, runs: [env, 'all'], reverse: true, stage: stage, contextScripts: scripts
+    }
+
+    log "-" * 20
+}
