@@ -10,9 +10,11 @@ class DrushFeaturesList extends Command {
 
     String state = 'Overridden'
 
+    String dir
+
     def perform() {
         def features = []
-        String output = drush command: "fl --format=json", noSimulate: noSimulate
+        String output = drush command: "fl --format=json", dir: new File(dir), noSimulate: noSimulate
         output = output.substring(output.indexOf('[{'))
         def jsonOutput = new JsonSlurper().parseText(output)
         jsonOutput.each { feature ->
