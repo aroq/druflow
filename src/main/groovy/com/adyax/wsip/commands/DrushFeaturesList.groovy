@@ -14,7 +14,7 @@ class DrushFeaturesList extends Command {
 
     def perform() {
         def features = []
-        String output = drush command: "fl --format=json", dir: new File(dir), noSimulate: noSimulate
+        String output = drush command: "fl --format=json", dir: new File(dir + "/docroot"), noSimulate: noSimulate
         output = output.substring(output.indexOf('[{'))
         def jsonOutput = new JsonSlurper().parseText(output)
         jsonOutput.each { feature ->
