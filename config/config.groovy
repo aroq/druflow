@@ -183,6 +183,11 @@ commands {
         className = 'com.adyax.wsip.commands.DownloadDrupal'
         noSimulate = true
     }
+    drushFeaturesList {
+        className = 'com.adyax.wsip.commands.DrushFeaturesList'
+        noSimulate = true
+        writeResultToProperties = true
+    }
     drushUPDB {
         className = 'com.adyax.wsip.commands.DrushUPDB'
     }
