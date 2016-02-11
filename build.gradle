@@ -22,7 +22,7 @@ configurations.all {
 dependencies {
     compile 'org.codehaus.groovy:groovy:2.4.5'
     compile 'org.jenkins-ci.plugins:job-dsl-core:1.42'
-    compile 'com.github.aroq:groovycommon:master-SNAPSHOT'
+    compile 'com.github.aroq:groovycommon:0.0.3'
     testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
         exclude module: 'groovy-all'
     }
