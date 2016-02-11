@@ -23,6 +23,15 @@ dependencies {
     compile 'org.codehaus.groovy:groovy:2.4.5'
     compile 'org.jenkins-ci.plugins:job-dsl-core:1.42'
     compile 'com.github.aroq:groovycommon:master-SNAPSHOT'
+    testCompile('org.spockframework:spock-core:0.7-groovy-2.0') {
+        exclude module: 'groovy-all'
+    }
+
+    // for the RestApiScriptRunner
+    compile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2') {
+        exclude(module: 'groovy')
+    }
+
     // for the RestApiScriptRunner and XmlOutputRunner
     compile('ant:ant:1.7.0')
 }
