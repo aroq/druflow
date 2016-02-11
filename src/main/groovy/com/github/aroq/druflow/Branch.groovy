@@ -1,4 +1,4 @@
-package com.aroq.druflow
+package com.github.aroq.druflow
 
 class Branch {
     String name
@@ -6,8 +6,6 @@ class Branch {
     Branch parent
 
     boolean autoMergeToParent = false
-
-    // private def children
 
     String getParentName() { parent?.name }
 }

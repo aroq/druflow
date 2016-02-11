@@ -1,27 +1,9 @@
-package com.aroq.druflow
+package com.github.aroq.druflow.commands
 
-class Component {
-    def config
+import com.github.aroq.druflow.Branch
+import com.github.aroq.groovycommon.Common
 
-    def componentName
-
-    def componentConfig
-
-    def scriptObject
-
-    def log(message) {
-        if (config.environment == 'jenkins') {
-            scriptObject.out.println message
-        }
-        else {
-            println message
-        }
-    }
-
-    def getBranchListByPattern(pattern) {
-        def gitlabBranches = new groovy.json.JsonSlurper().parseText(new URL("${config.gitlabAddress}/api/v3/projects/${config.projectID}/repository/branches?private_token=${config.privateToken}").text).name
-        gitlabBranches.findAll { it.value =~ pattern }
-    }
+class AutoMergeJobDSLCreator extends JobDSLCreator {
 
     def prepareBranch(name, branch, parent) {
         def branches = []
@@ -58,7 +40,8 @@ class Component {
         processedBranches.each { name, branch ->
             if (branch.namePattern) {
                 def pattern = processNamePattern(branch.namePattern, parent)
-                getBranchListByPattern(pattern)?.each{
+                def branchesList = Common.instance._executeCommand('gitlabBranchesList', this, [pattern: pattern])
+                branchesList?.each{
                     def mergeToBranch = it - "remotes/${componentConfig.remoteName}/"
                     branches += prepareBranch(mergeToBranch, branch, parent)
                 }
@@ -70,26 +53,7 @@ class Component {
         branches
     }
 
-    def loadConfig() {
-        if (config.environment == 'jenkins') {
-            return scriptObject.readFileFromWorkspace("config/${componentName}.groovy")
-        }
-        else {
-            def configFile = new File(rootDir(), "config/${componentName}.groovy")
-            if (configFile.exists()) {
-               return configFile.text
-            }
-        }
-    }
-
-    def rootDir() {
-        def dir = new File(System.getProperty("user.dir"))
-        if (dir.exists()) {
-            return dir.getPath()
-        }
-    }
-
-    def processComponent() {
+    def perform() {
         def componentConfigFile = loadConfig()
 
         def slurper = new ConfigSlurper()
@@ -114,6 +78,7 @@ class Component {
         }
     }
 
+    @Override
     def createJob(params) {
         params.mergeFromBranch = params.mergeFromBranch.trim()
         params.mergeToBranch = params.mergeToBranch.trim()
