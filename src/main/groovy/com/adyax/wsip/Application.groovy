@@ -20,7 +20,7 @@ class Application extends Command {
         // TODO: Consider to move it info config.
         def docrootConfigFile = new File(docrootConfigDir() + '/docroot.config')
         if (docrootConfigFile.exists()) {
-            Config.instance.addParams(ConfigSlurper.newInstance(config.environment).parse(docrootConfigFile.text))
+            Config.instance.addParams(ConfigSlurper.newInstance(config.environment).parse(docrootConfigFile.text), true)
         }
         else {
             error "Docroot config file not found: ${docrootConfigFile}"

@@ -12,8 +12,8 @@ class ContextDir {
     @Delegate Common commonUtils = Common.instance
 
     def getFiles(type, dirToSearch) {
-//        dirToSearch = new File(docrootPrefixDir() + '/' + dir + '/' + dirToSearch)
-        dirToSearch = new File(dir + '/' + dirToSearch)
+        dirToSearch = new File(docrootPrefixDir() + '/' + dir + '/' + dirToSearch)
+//        dirToSearch = new File(dir + '/' + dirToSearch)
         def pattern = ".*${type}\\.flow\\.steps"
         def files = []
         if (dirToSearch.exists()) {

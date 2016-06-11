@@ -16,8 +16,8 @@ contextParams {
         allowedCommands = ['drush']
         commands {
             drush {
-                allowedOptions = ['d', 'y', 'n', 'v', 's', 'debug', 'verbose', 'yes', 'no', 'simulate']
-                allowedEnvironments = ['dev', 'test']
+//                allowedOptions = ['d', 'y', 'n', 'v', 's', 'debug', 'verbose', 'yes', 'no', 'simulate']
+//                allowedEnvironments = ['dev', 'test']
             }
         }
     }
