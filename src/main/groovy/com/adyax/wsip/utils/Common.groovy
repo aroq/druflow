@@ -2,8 +2,8 @@ package com.adyax.wsip.utils
 
 import com.adyax.wsip.Config
 import com.adyax.wsip.Logger
-import groovy.io.FileType
 import groovy.json.JsonSlurper
+import static groovy.io.FileType.DIRECTORIES
 
 @Singleton
 class Common {
@@ -116,7 +116,7 @@ class Common {
 
     def projectDir(projectName = null) {
         def result = ''
-        new File(docrootConfigDir()).eachFileRecurse(FileType.DIRECTORIES) {
+        new File(docrootConfigDir()).eachFileRecurse(DIRECTORIES) {
             if (it.name == projectName) {
                  result = it
             }
@@ -240,6 +240,9 @@ class Common {
     }
 
     def executeInTempDir(LinkedHashMap params, closure) {
+        LinkedHashMap defaults = [clean: true]
+        defaults << params
+        params = defaults
         def tmp = new File(tmpDir(), params.subDir)
         tmp.mkdirs()
         def result
@@ -247,7 +250,9 @@ class Common {
             result = closure.call(tmp)
         }
         finally {
-            _executeCommand('shellCommand', params.caller, [cmd: "rm -fR ${params.subDir}", dir: tmpDir()])
+            if (params.clean) {
+                _executeCommand('shellCommand', params.caller, [cmd: "rm -fR ${params.subDir}", dir: tmpDir()])
+            }
         }
         result
     }

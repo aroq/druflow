@@ -4,6 +4,8 @@
 
 package com.adyax.wsip.commands
 
+import com.adyax.wsip.utils.PropertiesHandler
+
 class DirUpdate extends Command {
 
     String sourceDirName = 'drupal'

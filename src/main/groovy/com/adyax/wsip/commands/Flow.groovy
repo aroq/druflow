@@ -17,12 +17,31 @@ class Flow extends Command {
 
     String projectName
 
+    Boolean noBackup
+
+    Boolean noAllSites
+
+    Boolean noDeployTag
+
     def perform() {
+        if (noAllSites) {
+            log "Single site deploy."
+        }
+        if (noBackup) {
+            log "No backup will be performed."
+        }
+        if (noDeployTag) {
+            log "No tag deploy will be performed."
+        }
+
         def output = ''
         FlowDSL flowDsl = new FlowDSL(context: config.contexts.core, flowName: flowName, env: env);
         Binding binding = new Binding([
                 flow: flowDsl,
                 projectName: projectName,
+                noAllSites: noAllSites,
+                noBackup: noBackup,
+                noDeployTag: noDeployTag,
                 env: env
         ]);
 

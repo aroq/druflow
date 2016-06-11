@@ -9,6 +9,7 @@ class SitesListAll extends Command {
     def sitesDir = sitesDir()
 
     def perform() {
+        debug "Sites dir: ${sitesDir}"
         def sites = [:]
         Integer order
 

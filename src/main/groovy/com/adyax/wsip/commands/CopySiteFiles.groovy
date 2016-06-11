@@ -4,15 +4,19 @@
 
 package com.adyax.wsip.commands
 
-class CopySiteFiles extends Command {
+class CopySiteFiles extends CopyCommand {
 
     String from
 
     String to
 
+    String site
+
+    String toSite
+
     String env
 
-    String site
+    String toEnv
 
     def perform() {
         executeInTempDir(subDir: site, caller: this) { tmp ->
@@ -23,7 +27,7 @@ class CopySiteFiles extends Command {
 
             // TODO: env.site separator config.
             drush command: "rsync @${env}.${site}:%files ${tmp}", dir: fromDir, withoutAlias: true
-            result = drush command: "rsync ${tmp}/files/. @${env}.${site}:%files", dir: toDir, withoutAlias: true
+            result = drush command: "rsync ${tmp}/files/. @${toEnv}.${toSite}:%files", dir: toDir, withoutAlias: true, site: toSite
             result
         }
     }

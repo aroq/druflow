@@ -1,4 +1,8 @@
 package com.adyax.wsip.dsl
+
+import com.adyax.wsip.Base
+import com.adyax.wsip.utils.Common
+
 /**
  * Created by alex on 02.08.15.
  */

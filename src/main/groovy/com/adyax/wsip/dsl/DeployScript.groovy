@@ -5,9 +5,13 @@ package com.adyax.wsip.dsl
  */
 abstract class DeployScript extends Script {
 
-    def stage(stage, closure = null) {
-        this.binding.controller.stage(stage, closure)
-    }
+//    def stage(HashMap params, String stage, Closure closure = null) {
+//        this.binding.controller.stage(params, stage, closure)
+//    }
+//
+//    def stage(String stage, Closure closure = null) {
+//        this.binding.controller.stage(stage, closure)
+//    }
 
     def env(env, closure = null) {
         this.binding.controller.env(env, closure)

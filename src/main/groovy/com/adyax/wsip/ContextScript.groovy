@@ -2,13 +2,33 @@ package com.adyax.wsip
 
 import com.adyax.wsip.dsl.DeployDSL
 import com.adyax.wsip.dsl.DeployScript
-import org.codehaus.groovy.ast.expr.*
+import org.codehaus.groovy.ast.expr.ArgumentListExpression
+import org.codehaus.groovy.ast.expr.BinaryExpression
+import org.codehaus.groovy.ast.expr.BooleanExpression
+import org.codehaus.groovy.ast.expr.ClassExpression
+import org.codehaus.groovy.ast.expr.ClosureExpression
+import org.codehaus.groovy.ast.expr.ConstantExpression
+import org.codehaus.groovy.ast.expr.ElvisOperatorExpression
+import org.codehaus.groovy.ast.expr.MapEntryExpression
+import org.codehaus.groovy.ast.expr.MapExpression
+import org.codehaus.groovy.ast.expr.MethodCallExpression
+import org.codehaus.groovy.ast.expr.NamedArgumentListExpression
+import org.codehaus.groovy.ast.expr.PostfixExpression
+import org.codehaus.groovy.ast.expr.PrefixExpression
+import org.codehaus.groovy.ast.expr.PropertyExpression
+import org.codehaus.groovy.ast.expr.StaticMethodCallExpression
+import org.codehaus.groovy.ast.expr.TernaryExpression
+import org.codehaus.groovy.ast.expr.TupleExpression
+import org.codehaus.groovy.ast.expr.UnaryMinusExpression
+import org.codehaus.groovy.ast.expr.UnaryPlusExpression
+import org.codehaus.groovy.ast.expr.VariableExpression
 import org.codehaus.groovy.ast.stmt.BlockStatement
 import org.codehaus.groovy.ast.stmt.ExpressionStatement
 import org.codehaus.groovy.ast.stmt.ReturnStatement
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.SecureASTCustomizer
-import org.codehaus.groovy.syntax.Types
+
+import static org.codehaus.groovy.syntax.Types.*
 
 /**
  * Created by alex on 09.08.15.
@@ -19,13 +39,17 @@ class ContextScript extends Base {
 
     String type
 
+    def stepsToExecute = [:]
+
     def execute(stage, runs, site = '') {
         def runsCount = 0
 
         runs.each { run ->
             DeployDSL dsl = new DeployDSL(stage: stage, site: site)
+            stepsToExecute[run] = []
             dsl.run = run
             dsl.context = context
+            dsl.script = script
             Binding binding = new Binding(controller: dsl)
 
             def secure = new SecureASTCustomizer()
@@ -38,15 +62,15 @@ class ContextScript extends Base {
                 staticStarImportsWhitelist = ['java.lang.Math']
 
                 tokensWhitelist = [
-                      Types.PLUS, Types.MINUS, Types.MULTIPLY, Types.DIVIDE, Types.MOD, Types.POWER, Types.PLUS_PLUS,
-                      Types.MINUS_MINUS, Types.COMPARE_EQUAL, Types.COMPARE_NOT_EQUAL,
-                      Types.COMPARE_LESS_THAN, Types.COMPARE_LESS_THAN_EQUAL,
-                      Types.COMPARE_GREATER_THAN, Types.COMPARE_GREATER_THAN_EQUAL,
+                      PLUS, MINUS, MULTIPLY, DIVIDE, MOD, POWER, PLUS_PLUS,
+                      MINUS_MINUS, COMPARE_EQUAL, COMPARE_NOT_EQUAL,
+                      COMPARE_LESS_THAN, COMPARE_LESS_THAN_EQUAL,
+                      COMPARE_GREATER_THAN, COMPARE_GREATER_THAN_EQUAL,
                 ]
 
                 constantTypesClassesWhiteList = [
                       Object, String, Integer, Float, Long, Double, BigDecimal,
-                      Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE
+                      Integer.TYPE, Long.TYPE, Float.TYPE, Double.TYPE, Boolean.TYPE
                 ]
 
                 receiversClassesWhiteList = [
@@ -77,9 +101,11 @@ class ContextScript extends Base {
             GroovyShell shell = new GroovyShell(this.class.classLoader, binding, config)
             try {
                 runsCount++
-                debug("Executing script: ${script}")
-                debug("Run #${runsCount}: environment: ${run}, stage: ${stage}")
+                debug("Processing script: ${script}")
                 shell.evaluate(script)
+                if (dsl.stepsToExecute) {
+                    stepsToExecute[run] += dsl.stepsToExecute
+                }
             }
             catch (MissingPropertyException e) {
                 error(/Command "${e.property}" is not known/)
@@ -91,6 +117,7 @@ class ContextScript extends Base {
                 error(e)
             }
         }
+        stepsToExecute
     }
 
 }

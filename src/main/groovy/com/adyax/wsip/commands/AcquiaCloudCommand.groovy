@@ -4,7 +4,7 @@
 
 package com.adyax.wsip.commands
 
-import groovy.json.JsonSlurper
+import groovy.json.*
 
 class AcquiaCloudCommand extends Command {
 

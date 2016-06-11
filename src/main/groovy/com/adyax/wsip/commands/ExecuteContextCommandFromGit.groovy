@@ -4,6 +4,8 @@
 
 package com.adyax.wsip.commands
 
+import com.adyax.wsip.ContextScript
+
 class ExecuteContextCommandFromGit extends Command {
 
     String site

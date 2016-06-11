@@ -16,6 +16,8 @@ class ExecuteSteps extends Command {
 
     Boolean reverse = false
 
+    def stepsToExecute = []
+
     def transformParams() {
         if (contextScripts instanceof Closure) {
             def closure = contextScripts
@@ -28,11 +30,47 @@ class ExecuteSteps extends Command {
         }
     }
 
+    def executeStep(step) {
+        def result
+        step.execute()
+        result
+    }
+
     def perform() {
+        def runsCount = 0
         def result = []
         contextScripts.each { contextScript ->
-            result << contextScript.execute(stage, runs, site)
+            stepsToExecute << contextScript.execute(stage, runs, site)
         }
+
+        def steps = [:]
+
+        runs.each { run ->
+            steps[run] = []
+            runsCount++
+            stepsToExecute.each { script ->
+                steps[run] << script.findAll {
+                    it.key == run
+                }
+                .collect {
+                    it.value
+                }
+            }
+
+            steps[run] = steps[run].flatten()
+
+            steps[run].each { step ->
+                if (step.override.toBoolean()) {
+                    steps[run] = [step]
+                }
+            }
+
+            steps[run].each { step ->
+                debug("Run #${runsCount}: environment: ${run}, stage: ${stage}")
+                result << executeStep(step)
+            }
+        }
+
         result
     }
 

@@ -48,7 +48,7 @@ class Command extends Base {
 
     def dumpParams() {
         getCommandParams().each { field ->
-            if (field instanceof Closure) {
+            if (field instanceof Closure || field.type.name == 'groovy.lang.Closure') {
                 debug("param: ${field.name} = Closure")
             }
             else {
@@ -73,7 +73,17 @@ class Command extends Base {
         getCommandParams().each {field ->
             if (!thisObject."${field.name}") {
                 if (config.containsKey(field.name)) {
-                    thisObject."${field.name}" = config[field.name]
+                    if (field.type.name == 'java.lang.Boolean') {
+                        if (config[field.name] == 'false' || config[field.name] == '0') {
+                            thisObject."${field.name}" = false
+                        }
+                        else {
+                            thisObject."${field.name}" = config[field.name].asBoolean()
+                        }
+                    }
+                    else {
+                        thisObject."${field.name}" = config[field.name]
+                    }
                 }
             }
         }

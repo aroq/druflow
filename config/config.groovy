@@ -104,6 +104,15 @@ commands {
         className = 'com.adyax.wsip.commands.SitesListAll'
         requiredConfigParams = ['sitesDir']
     }
+    sitesListFromFile {
+        className = 'com.adyax.wsip.commands.SitesListFromFile'
+    }
+    bulkCopySiteDB {
+        className = 'com.adyax.wsip.commands.BulkCopySiteDB'
+    }
+    bulkCopySiteFiles {
+        className = 'com.adyax.wsip.commands.BulkCopySiteFiles'
+    }
     siteList {
         className = 'com.adyax.wsip.commands.SitesList'
     }
@@ -207,11 +216,17 @@ commands {
     clearVarnish {
         className = 'com.adyax.wsip.commands.ClearVarnish'
     }
+    copySite {
+        className = 'com.adyax.wsip.commands.CopySite'
+        requiredParams = ['env', 'site', 'from']
+    }
     copySiteDB {
         className = 'com.adyax.wsip.commands.CopySiteDB'
+        requiredParams = ['env', 'site', 'from']
     }
     copySiteFiles {
         className = 'com.adyax.wsip.commands.CopySiteFiles'
+        requiredParams = ['env', 'site', 'from']
     }
     drupalVersionChecker {
         className = 'com.adyax.wsip.commands.DrupalVersionChecker'

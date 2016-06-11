@@ -4,13 +4,19 @@
 
 package com.adyax.wsip.commands
 
-class CopySiteDB extends Command {
+class CopySiteDB extends CopyCommand {
 
     String from
 
     String to
 
     String site
+
+    String toSite
+
+    String env
+
+    String toEnv
 
     def perform() {
         def result
@@ -21,9 +27,10 @@ class CopySiteDB extends Command {
 
             drush command: "sql-dump > ${fileName}", dir: fromDir
             if ((new File(fileName)).exists()) {
-                drush command: "sql-drop", dir: toDir
-                result = drush command: "sqlc < ${fileName}", dir: toDir
-                drush command: "rr", dir: toDir
+                drush command: "sql-drop", dir: toDir, env: toEnv, site: toSite
+                result = drush command: "sqlc < ${fileName}", dir: toDir, env: toEnv, site: toSite
+                drush command: "rr", dir: toDir, env: toEnv, site: toSite
+                drush command: "isa", dir: toDir, env: toEnv, site: toSite
             }
         }
         result

@@ -5,6 +5,7 @@
 package com.adyax.wsip.commands
 
 import com.adyax.wsip.ContextDir
+import com.adyax.wsip.utils.Common
 
 class GetContextDirs extends Command {
 
