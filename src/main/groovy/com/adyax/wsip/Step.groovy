@@ -17,6 +17,8 @@ class Step extends Command {
 
     Boolean override = false
 
+    Closure overrideCheck
+
     Context context
 
     String script

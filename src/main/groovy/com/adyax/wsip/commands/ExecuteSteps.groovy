@@ -60,7 +60,13 @@ class ExecuteSteps extends Command {
             steps[run] = steps[run].flatten()
 
             steps[run].each { step ->
+                if (step.overrideCheck && (step.overrideCheck instanceof Closure || step.overrideCheck.type.name == 'groovy.lang.Closure')) {
+                    step.overrideCheck.delegate = this
+                    step.overrideCheck.resolveStrategy = Closure.DELEGATE_FIRST
+                    step.override = step.overrideCheck.call(config.env)
+                }
                 if (step.override.toBoolean()) {
+                    log "Overriding other steps as per stage config."
                     steps[run] = [step]
                 }
             }
