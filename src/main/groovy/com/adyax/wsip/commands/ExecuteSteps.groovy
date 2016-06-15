@@ -66,7 +66,7 @@ class ExecuteSteps extends Command {
                     step.override = step.overrideCheck.call(config.env)
                 }
                 if (step.override.toBoolean()) {
-                    log "Overriding other steps as per stage config."
+                    log "OVERRIDE: Overriding other steps as per stage params in deploy script."
                     steps[run] = [step]
                 }
             }

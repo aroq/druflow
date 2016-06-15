@@ -10,10 +10,12 @@ import org.codehaus.groovy.ast.expr.ClosureExpression
 import org.codehaus.groovy.ast.expr.ConstantExpression
 import org.codehaus.groovy.ast.expr.ElvisOperatorExpression
 import org.codehaus.groovy.ast.expr.GStringExpression
+import org.codehaus.groovy.ast.expr.ListExpression
 import org.codehaus.groovy.ast.expr.MapEntryExpression
 import org.codehaus.groovy.ast.expr.MapExpression
 import org.codehaus.groovy.ast.expr.MethodCallExpression
 import org.codehaus.groovy.ast.expr.NamedArgumentListExpression
+import org.codehaus.groovy.ast.expr.NotExpression
 import org.codehaus.groovy.ast.expr.PostfixExpression
 import org.codehaus.groovy.ast.expr.PrefixExpression
 import org.codehaus.groovy.ast.expr.PropertyExpression
@@ -67,7 +69,7 @@ class ContextScript extends Base {
                       PLUS, MINUS, MULTIPLY, DIVIDE, MOD, POWER, PLUS_PLUS,
                       MINUS_MINUS, COMPARE_EQUAL, COMPARE_NOT_EQUAL,
                       COMPARE_LESS_THAN, COMPARE_LESS_THAN_EQUAL,
-                      COMPARE_GREATER_THAN, COMPARE_GREATER_THAN_EQUAL, EQUAL, LOGICAL_OR
+                      COMPARE_GREATER_THAN, COMPARE_GREATER_THAN_EQUAL, EQUAL, LOGICAL_OR, LOGICAL_AND, KEYWORD_IN
                 ]
 
                 constantTypesClassesWhiteList = [
@@ -94,7 +96,8 @@ class ContextScript extends Base {
                   VariableExpression,     ClosureExpression,
                   TupleExpression,        NamedArgumentListExpression,
                   MapEntryExpression,     MapExpression,
-                  GStringExpression
+                  GStringExpression,      ListExpression,
+                  NotExpression
                 ]
             }
 
