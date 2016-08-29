@@ -88,6 +88,11 @@ commands {
         requiredConfigParams = ['acquiaCloudDocrootName']
         requiredParams = ['argument']
     }
+    domainList {
+        className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
+        acquiaCloudCommandName = 'ac-domain-list'
+        requiredConfigParams = ['acquiaCloudDocrootName']
+    }
     clearVarnishForURL {
         className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
         acquiaCloudCommandName = 'ac-domain-purge'
@@ -215,6 +220,12 @@ commands {
     }
     clearVarnish {
         className = 'com.adyax.wsip.commands.ClearVarnish'
+        mode = 'site'
+    }
+    clearVarnishAll {
+        className = 'com.adyax.wsip.commands.ClearVarnish'
+        mode = 'all'
+        site = 'default'
     }
     copySite {
         className = 'com.adyax.wsip.commands.CopySite'
