@@ -220,7 +220,7 @@ commands {
     }
     clearVarnish {
         className = 'com.adyax.wsip.commands.ClearVarnish'
-        mode = 'site'
+        mode = 'acquia-purge'
     }
     clearVarnishAll {
         className = 'com.adyax.wsip.commands.ClearVarnish'

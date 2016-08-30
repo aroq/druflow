@@ -267,4 +267,8 @@ class Common {
         result
     }
 
+    def extractJson(json) {
+        json.dropWhile { it != '[' && it != '{'}
+    }
+
 }
