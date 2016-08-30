@@ -25,6 +25,7 @@ class ClearVarnish extends Command {
         // TODO: extract needed sites from drubone config.
         if (mode == 'all') {
             def commandResult = executeCommand('domainList', [env: config.env, site: site])
+            log "Extract result: ${extractJson(commandResult)}"
             def domainList = JsonSlurper.newInstance().parseText(extractJson(commandResult))
             domains = domainList.collect {
                 it.name
