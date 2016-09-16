@@ -73,7 +73,10 @@ class AcquiaCloudCommand extends Command {
     }
 
     def getCommand() {
-        "${acquiaCloudCommandName} ${argument} --format=json --ac-site=${config.acquiaCloudDocrootName} --ac-realm=prod --ac-env=${env} --strict=0"
+        if (!config.acquiaCloudRealm) {
+            config.acquiaCloudRealm = 'prod'
+        }
+        "${acquiaCloudCommandName} ${argument} --format=json --ac-site=${config.acquiaCloudDocrootName} --ac-realm=${config.acquiaCloudRealm} --ac-env=${env} --strict=0"
     }
 
     def getMasterSite(site) {
