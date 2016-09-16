@@ -46,7 +46,7 @@ class AcquiaCloudCommand extends Command {
     }
 
     def perform() {
-        def task = executeCommand('drush', [command: getCommand(), site: site, env: env, noSimulate: noSimulate])
+        def task = extractJson(executeCommand('drush', [command: getCommand(), site: site, env: env, noSimulate: noSimulate]))
         def count = 0
         if (wait && !simulate) {
             task = JsonSlurper.newInstance().parseText(task)
