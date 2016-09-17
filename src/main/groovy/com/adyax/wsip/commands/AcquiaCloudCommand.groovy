@@ -51,7 +51,7 @@ class AcquiaCloudCommand extends Command {
         if (wait && !simulate) {
             task = JsonSlurper.newInstance().parseText(task)
             def waitTask = [:]
-            while (!waitTask.state || (waitTask.state != 'done' && waitTask.state != 'error')) {
+            while (!waitTask.state || (waitTask.state != 'done' && waitTask.state != 'error' && waitTask.state != 'failed')) {
                 count++
                 log("Wait until command is finished: attempt ${count}")
                 Thread.sleep(3000)
