@@ -51,6 +51,13 @@ commands {
         requiredParams = ['argument']
         wait = true
     }
+    dbCopyAC {
+        className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
+        acquiaCloudCommandName = 'ac-database-copy'
+        requiredConfigParams = ['acquiaCloudDocrootName']
+        requiredParams = ['argument']
+        wait = true
+    }
     deployTag {
         className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
         acquiaCloudCommandName = 'ac-code-path-deploy'
