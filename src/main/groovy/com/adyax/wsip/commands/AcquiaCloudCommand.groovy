@@ -54,9 +54,9 @@ class AcquiaCloudCommand extends Command {
             while (!waitTask.state || (waitTask.state != 'done' && waitTask.state != 'error' && waitTask.state != 'failed')) {
                 count++
                 log("Wait until command is finished: attempt ${count}")
-                Thread.sleep(6000)
+                Thread.sleep(10000)
                 waitTask = JsonSlurper.newInstance().parseText(executeCommand('waitCommandFinish', [argument: task.id, site: site, env: env, noSimulate: noSimulate]))
-                if (count == 100) {
+                if (count == 200) {
                     error("Too many attempts")
                     break
                 }
