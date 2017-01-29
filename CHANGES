@@ -1,0 +1,25 @@
+Version 0.1.0
+ - Added backend mode for drush command
+ - Increased try account for Acquia cloud
+ - Changed Acquia Cloud try count and timeout
+ - Changed groovy version in gradle config
+ - Added AC DB copy command
+ - Add checking for 'failed' state in AC wait task
+ - Added AC Realm config settings
+ - Added AC Realm config settings
+ - Varnish Clear all log
+ - Varnish Clear all command finished
+ - Added log for ClearVarnishAll command
+ - Added varnish clear all command
+ - Added new override option
+ - Added new override check
+ - Added new commands, refactored steps
+ - Changed allowed drush command options on project level
+ - Changed drushFeaturesList command
+ - Changed drushFeaturesList command
+ - Changed drushFeaturesList command
+ - Added drushFeaturesList command
+ - Configured to use gradle
+ - Changed versions of plugins
+ - Initial commit
+
