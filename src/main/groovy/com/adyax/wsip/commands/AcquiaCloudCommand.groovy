@@ -20,6 +20,8 @@ class AcquiaCloudCommand extends Command {
 
     String defaultACEnv
 
+    String mode
+
     def transformParams() {
         super.transformParams()
 
@@ -46,7 +48,7 @@ class AcquiaCloudCommand extends Command {
     }
 
     def perform() {
-        def task = extractJson(executeCommand('drush', [command: getCommand(), site: site, env: env, noSimulate: noSimulate]))
+        def task = extractJson(executeCommand('drush', [command: getCommand(), site: site, env: env, noSimulate: noSimulate, mode: mode]))
         def count = 0
         if (wait && !simulate) {
             task = JsonSlurper.newInstance().parseText(task)
@@ -76,6 +78,7 @@ class AcquiaCloudCommand extends Command {
         if (!config.acquiaCloudRealm) {
             config.acquiaCloudRealm = 'prod'
         }
+        argument = argument ? argument : ''
         "${acquiaCloudCommandName} ${argument} --format=json --ac-site=${config.acquiaCloudDocrootName} --ac-realm=${config.acquiaCloudRealm} --ac-env=${env} --strict=0"
     }
 

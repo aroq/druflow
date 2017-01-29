@@ -106,6 +106,12 @@ commands {
         requiredConfigParams = ['acquiaCloudDocrootName']
         requiredParams = ['argument']
     }
+    getAcquiaServers {
+        className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
+        acquiaCloudCommandName = 'ac-server-list'
+        requiredConfigParams = ['acquiaCloudDocrootName']
+        noSimulate = true
+    }
     waitCommandFinish {
         className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
         acquiaCloudCommandName = 'ac-task-info'
