@@ -12,7 +12,7 @@ class ShellCommand extends Command {
 
     Boolean returnExitValue = false
 
-    def timeout = 600000
+    def timeout = 3600000
 
     def transformParams() {
         super.transformParams()
