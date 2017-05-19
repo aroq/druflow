@@ -1,3 +1,7 @@
+Version 0.1.1:
+ - Added flow type
+ - Changed command timeout limit
+
 Version 0.1.0
  - Added backend mode for drush command
  - Increased try account for Acquia cloud
