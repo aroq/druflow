@@ -1,3 +1,7 @@
+Version 0.1.2:
+ - Added flowType
+ - Added flowType
+
 Version 0.1.1:
  - Added flow type
  - Changed command timeout limit
