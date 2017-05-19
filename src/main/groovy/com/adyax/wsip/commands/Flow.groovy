@@ -42,6 +42,8 @@ class Flow extends Command {
         if (noDeployTag) {
             log "No tag deploy will be performed."
         }
+        log "Flow name: ${flowName}"
+        log "Flow type: ${flowType}"
 
         def output = ''
         FlowDSL flowDsl = new FlowDSL(context: config.contexts.core, flowName: flowName, env: env);
