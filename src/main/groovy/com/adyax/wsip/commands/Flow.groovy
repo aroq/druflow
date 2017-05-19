@@ -42,6 +42,7 @@ class Flow extends Command {
                 noAllSites: noAllSites,
                 noBackup: noBackup,
                 noDeployTag: noDeployTag,
+                flowType: 'deploy',
                 env: env
         ]);
 
