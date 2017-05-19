@@ -25,12 +25,12 @@ class Flow extends Command {
 
     Boolean noDeployTag
 
-//    def transformParams() {
-//        super.transformParams()
-//        if (!flowType) {
-//            flowType = 'deploy'
-//        }
-//    }
+    def transformParams() {
+        super.transformParams()
+        if (!flowType) {
+            flowType = 'deploy'
+        }
+    }
 
     def perform() {
         if (noAllSites) {

@@ -160,7 +160,7 @@ commands {
     deployFlow {
         className = 'com.adyax.wsip.commands.Flow'
         flowName = 'deploy'
-        flowType = 'deploy'
+//        flowType = 'deploy'
     }
     getContextDirs {
         className = 'com.adyax.wsip.commands.GetContextDirs'
