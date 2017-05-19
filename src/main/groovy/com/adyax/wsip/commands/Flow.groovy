@@ -13,6 +13,8 @@ class Flow extends Command {
 
     String flowName
 
+    String flowType
+
     String env
 
     String projectName
@@ -22,6 +24,13 @@ class Flow extends Command {
     Boolean noAllSites
 
     Boolean noDeployTag
+
+//    def transformParams() {
+//        super.transformParams()
+//        if (!flowType) {
+//            flowType = 'deploy'
+//        }
+//    }
 
     def perform() {
         if (noAllSites) {
