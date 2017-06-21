@@ -133,7 +133,7 @@ class Command extends Base {
     }
 
     def debug() {
-        config.debug && config.simulate != '0'
+        config.debug && config.debug != '0'
     }
 
     def fail(message) {
