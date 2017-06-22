@@ -66,7 +66,7 @@ class AcquiaCloudCommand extends Command {
             if (waitTask.state == 'done') {
                 log("Command wait finished successfully.")
             } else {
-              fail(waitTask.description)
+                fail(waitTask.description)
             }
 
         }
