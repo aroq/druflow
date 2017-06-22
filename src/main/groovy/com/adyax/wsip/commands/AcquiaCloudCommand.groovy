@@ -14,6 +14,10 @@ class AcquiaCloudCommand extends Command {
 
     Boolean wait
 
+    Integer attemptsCount
+
+    Integer attemptDelay
+
     String site
 
     String env
