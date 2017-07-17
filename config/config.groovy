@@ -50,6 +50,8 @@ commands {
         requiredConfigParams = ['acquiaCloudDocrootName']
         requiredParams = ['argument']
         wait = true
+        attemptsCount = 200
+        attemptDelay = 10000
     }
     dbCopyAC {
         className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
@@ -57,6 +59,8 @@ commands {
         requiredConfigParams = ['acquiaCloudDocrootName']
         requiredParams = ['argument']
         wait = true
+        attemptsCount = 200
+        attemptDelay = 10000
     }
     deployTag {
         className = 'com.adyax.wsip.commands.AcquiaCloudCommand'
@@ -64,6 +68,8 @@ commands {
         requiredConfigParams = ['acquiaCloudDocrootName']
         requiredParams = ['argument']
         wait = true
+        attemptsCount = 200
+        attemptDelay = 10000
     }
     deployTagCapistrano {
         className = 'com.adyax.wsip.commands.DeployTagCapistrano'
