@@ -74,7 +74,11 @@ class Common {
         docrootDir(ws) + '/' + config.docrootPrefixDir
     }
 
-    def docrootConfigDir() {
+    def docrootConfigDir(ws = null) {
+        if (config.docrootConfigDir) {
+            ws = ws ? ws : workspace()
+            return ws + '/' + config.docrootConfigDir
+        }
         docrootDir() + '/config'
     }
 
